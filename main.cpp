@@ -21,6 +21,28 @@ public:
 
     } 
 
+    std::string getPartName() const{
+        return partName;
+    }
+
+    int getPwmValue() const{
+        return pwmValue;
+    }
+
+};
+
+class RobotLeg : public RobotPart{
+private:
+
+
+public:
+    RobotLeg(const std::string& name, int pwm)
+        : RobotPart(name + " Leg", pwm){}
+    
+    void performAction() override{
+        std::cout << getPartName() << ": Berjalan dan menendang bola dengan PWM: " << getPwmValue() << std::endl;
+    }
+
 };
 
 int main(){
