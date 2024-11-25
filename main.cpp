@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <memory>
 
 class RobotPart{
 private:
@@ -15,13 +14,14 @@ public:
     // destructor
     virtual ~RobotPart() = default;
 
+    // pure virtual method
     virtual void performAction() = 0;
 
     void screamTopic(){
         std::cout << "Ini adalah " <<  partName << " dengan nilai PWM: " << pwmValue << std::endl;
-
     } 
 
+    //getter methods
     std::string getPartName() const{
         return partName;
     }
@@ -33,9 +33,6 @@ public:
 };
 
 class RobotLeg : public RobotPart{
-private:
-
-
 public:
     RobotLeg(const std::string& name, int pwm)
         : RobotPart(name + " Leg", pwm){}
@@ -82,7 +79,11 @@ public:
         : RobotPart("Head", pwm), hasCamera(cam), hasInfrared(inf) {}
     
     void performAction() override{
-        std::cout << getPartName() << ": Menganalisis dengan Kamera: " << (hasCamera ? "Nyala" : "Mati") << ", Sensor Infrared: " << (hasInfrared ? "Aktif" : "Tidak Aktif") << ", dan PWM: "<< getPwmValue() <<std::endl;
+        std::cout 
+            << getPartName() 
+            << ": Menganalisis dengan Kamera: " << (hasCamera ? "Nyala" : "Mati") 
+            << ", Sensor Infrared: " << (hasInfrared ? "Aktif" : "Tidak Aktif") 
+            << ", dan PWM: "<< getPwmValue() <<std::endl;
     }
 };
 
@@ -91,35 +92,36 @@ private:
     std::vector<RobotPart*> parts;
 
 public:
-    //HumanoidRobot(){}
+    HumanoidRobot(){}
 
+    //add robotpart to parts
     void addPart(RobotPart* part){
         parts.push_back(part);
     }
 
     void controlParts(){
+        // run performAction and screamTopic for every parts
         for(const auto& part : parts){
             part->performAction();
             part->screamTopic();
         }
     }
 
+    //destructor
     virtual ~HumanoidRobot() = default;
 };
 
 int main(){
-
-    // Membuat objek robot humanoid
+    //create object
     HumanoidRobot gladiatosRobot;
 
-    // Menambahkan bagian tubuh ke robot (Inheritance dan Polimorfisme)
-    gladiatosRobot.addPart(new RobotLeg("Left", 120));  // PWM 120
-    gladiatosRobot.addPart(new RobotLeg("Right", 130)); // PWM 130
-    gladiatosRobot.addPart(new RobotLeftArm(true, 140)); // Sensor aktif, PWM 140
-    gladiatosRobot.addPart(new RobotRightArm(true, 150)); // Tangan bisa menggenggam, PWM 150
-    gladiatosRobot.addPart(new RobotHead(true, true, 160)); // Kamera dan Infrared aktif, PWM 160
+    // add parts to object
+    gladiatosRobot.addPart(new RobotLeg("Left", 120));
+    gladiatosRobot.addPart(new RobotLeg("Right", 130));
+    gladiatosRobot.addPart(new RobotLeftArm(true, 140));
+    gladiatosRobot.addPart(new RobotRightArm(true, 150));
+    gladiatosRobot.addPart(new RobotHead(true, true, 160));
 
-    // Mengontrol semua bagian tubuh robot
     std::cout << "Mengontrol Bagian-Bagian Tubuh Gladiatos Robot:" << std::endl;
     gladiatosRobot.controlParts();
 
