@@ -71,6 +71,20 @@ public:
     }
 };
 
+class RobotHead : public RobotPart{
+private:
+    bool hasCamera;
+    bool hasInfrared;
+
+public:
+    RobotHead(bool cam, bool inf, int pwm)
+        : RobotPart("Head", pwm), hasCamera(cam), hasInfrared(inf) {}
+    
+    void performAction() override{
+        std::cout << getPartName() << ": Menganalisis dengan Kamera:: " << (hasCamera ? "Nyala" : "Mati") << ", Sensor Infrared: " << (hasInfrared ? "Aktif" : "Tidak Aktif") << ", dan PWM: "<< getPwmValue() <<std::endl;
+    }
+};
+
 int main(){
 
     return 0;
