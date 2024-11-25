@@ -68,7 +68,7 @@ public:
         : RobotPart("Right Arm", pwm), canGrab(grab) {}
 
     void performAction() override{
-        std::cout << getPartName() << ": Menggenggam objek dengan tangan:: " << (canGrab ? "Bisa" : "Tidak Bisa") << " dan PWM: "<< getPwmValue() <<std::endl;
+        std::cout << getPartName() << ": Menggenggam objek dengan tangan: " << (canGrab ? "Bisa" : "Tidak Bisa") << " dan PWM: "<< getPwmValue() <<std::endl;
     }
 };
 
@@ -82,7 +82,7 @@ public:
         : RobotPart("Head", pwm), hasCamera(cam), hasInfrared(inf) {}
     
     void performAction() override{
-        std::cout << getPartName() << ": Menganalisis dengan Kamera:: " << (hasCamera ? "Nyala" : "Mati") << ", Sensor Infrared: " << (hasInfrared ? "Aktif" : "Tidak Aktif") << ", dan PWM: "<< getPwmValue() <<std::endl;
+        std::cout << getPartName() << ": Menganalisis dengan Kamera: " << (hasCamera ? "Nyala" : "Mati") << ", Sensor Infrared: " << (hasInfrared ? "Aktif" : "Tidak Aktif") << ", dan PWM: "<< getPwmValue() <<std::endl;
     }
 };
 
