@@ -18,7 +18,7 @@ public:
     virtual void performAction() = 0;
 
     void screamTopic(){
-        std::cout << "This is " <<  partName << "dengan nilai PWM: " << pwmValue << std::endl;
+        std::cout << "Ini adalah " <<  partName << " dengan nilai PWM: " << pwmValue << std::endl;
 
     } 
 
