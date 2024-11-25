@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <memory>
 
 class RobotPart{
 private:
@@ -85,7 +86,42 @@ public:
     }
 };
 
+class HumanoidRobot{
+private:
+    std::vector<RobotPart*> parts;
+
+public:
+    //HumanoidRobot(){}
+
+    void addPart(RobotPart* part){
+        parts.push_back(part);
+    }
+
+    void controlParts(){
+        for(const auto& part : parts){
+            part->performAction();
+            part->screamTopic();
+        }
+    }
+
+    virtual ~HumanoidRobot() = default;
+};
+
 int main(){
+
+    // Membuat objek robot humanoid
+    HumanoidRobot gladiatosRobot;
+
+    // Menambahkan bagian tubuh ke robot (Inheritance dan Polimorfisme)
+    gladiatosRobot.addPart(new RobotLeg("Left", 120));  // PWM 120
+    gladiatosRobot.addPart(new RobotLeg("Right", 130)); // PWM 130
+    gladiatosRobot.addPart(new RobotLeftArm(true, 140)); // Sensor aktif, PWM 140
+    gladiatosRobot.addPart(new RobotRightArm(true, 150)); // Tangan bisa menggenggam, PWM 150
+    gladiatosRobot.addPart(new RobotHead(true, true, 160)); // Kamera dan Infrared aktif, PWM 160
+
+    // Mengontrol semua bagian tubuh robot
+    std::cout << "Mengontrol Bagian-Bagian Tubuh Gladiatos Robot:" << std::endl;
+    gladiatosRobot.controlParts();
 
     return 0;
 }
